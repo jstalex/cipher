@@ -64,6 +64,8 @@ always_ff @(posedge clk_i or negedge resetn_i) begin
         temp_data = 0;
         xored_data = 0;
         counter <= 0;
+        busy_o <= 0;
+        valid_o <= 0;
     end else begin
         case(state)
         IDLE: begin
