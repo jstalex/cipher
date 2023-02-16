@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="1674000000fs"></ZoomStartTime>
-      <ZoomEndTime time="1933200001fs"></ZoomEndTime>
-      <Cursor1Time time="1795000000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="324000002fs"></ZoomEndTime>
+      <Cursor1Time time="215000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="130"></ValueColumnWidth>
+      <ValueColumnWidth column_width="531"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="17" />
+   <WVObjectSize size="19" />
    <wvobject fp_name="/testbench/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -72,9 +72,17 @@
       <obj_property name="ElementShortName">temp_data[127:0]</obj_property>
       <obj_property name="ObjectShortName">temp_data[127:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="/testbench/DUT/data_i" type="array">
+      <obj_property name="ElementShortName">data_i[127:0]</obj_property>
+      <obj_property name="ObjectShortName">data_i[127:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/testbench/DUT/xored_data" type="array">
       <obj_property name="ElementShortName">xored_data[127:0]</obj_property>
       <obj_property name="ObjectShortName">xored_data[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/DUT/data_key_result_bytes" type="array">
+      <obj_property name="ElementShortName">data_key_result_bytes[15:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_key_result_bytes[15:0][7:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/DUT/temp_L_data" type="array">
       <obj_property name="ElementShortName">temp_L_data[15:0][7:0]</obj_property>
