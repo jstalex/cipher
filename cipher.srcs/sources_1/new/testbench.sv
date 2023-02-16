@@ -13,7 +13,7 @@ module testbench();
     logic [128*11-1:0] print_str;
 
 
-    kuznechik_cipher DUT(
+    top DUT(
         .clk_i      (clk),
         .resetn_i   (resetn),
         .data_i     (data_i),
