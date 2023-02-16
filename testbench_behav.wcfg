@@ -11,22 +11,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="238333333fs"></ZoomStartTime>
-      <ZoomEndTime time="366333334fs"></ZoomEndTime>
-      <Cursor1Time time="345000000fs"></Cursor1Time>
+      <ZoomStartTime time="1674000000fs"></ZoomStartTime>
+      <ZoomEndTime time="1933200001fs"></ZoomEndTime>
+      <Cursor1Time time="1795000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="146"></ValueColumnWidth>
+      <ValueColumnWidth column_width="130"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="11" />
+   <WVObjectSize size="17" />
    <wvobject fp_name="/testbench/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/resetn" type="logic">
-      <obj_property name="ElementShortName">resetn</obj_property>
-      <obj_property name="ObjectShortName">resetn</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/data_to_cipher" type="array">
       <obj_property name="ElementShortName">data_to_cipher[0:10][127:0]</obj_property>
@@ -52,13 +48,41 @@
       <obj_property name="ElementShortName">busy</obj_property>
       <obj_property name="ObjectShortName">busy</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/data_i" type="array">
-      <obj_property name="ElementShortName">data_i[127:0]</obj_property>
-      <obj_property name="ObjectShortName">data_i[127:0]</obj_property>
+   <wvobject fp_name="/testbench/DUT/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/data_o" type="array">
+   <wvobject fp_name="/testbench/DUT/round" type="array">
+      <obj_property name="ElementShortName">round[3:0]</obj_property>
+      <obj_property name="ObjectShortName">round[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/DUT/counter" type="array">
+      <obj_property name="ElementShortName">counter[4:0]</obj_property>
+      <obj_property name="ObjectShortName">counter[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/DUT/data_o" type="array">
       <obj_property name="ElementShortName">data_o[127:0]</obj_property>
       <obj_property name="ObjectShortName">data_o[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/DUT/key_mem" type="array">
+      <obj_property name="ElementShortName">key_mem[0:9][127:0]</obj_property>
+      <obj_property name="ObjectShortName">key_mem[0:9][127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/DUT/temp_data" type="array">
+      <obj_property name="ElementShortName">temp_data[127:0]</obj_property>
+      <obj_property name="ObjectShortName">temp_data[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/DUT/xored_data" type="array">
+      <obj_property name="ElementShortName">xored_data[127:0]</obj_property>
+      <obj_property name="ObjectShortName">xored_data[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/DUT/temp_L_data" type="array">
+      <obj_property name="ElementShortName">temp_L_data[15:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">temp_L_data[15:0][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/DUT/data_galua_result" type="array">
+      <obj_property name="ElementShortName">data_galua_result[15:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_galua_result[15:0][7:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/i" type="array">
       <obj_property name="ElementShortName">i[31:0]</obj_property>

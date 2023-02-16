@@ -73,6 +73,7 @@ always_ff @(posedge clk_i or negedge resetn_i) begin
                 temp_data <= data_i;
                 counter <= 0;
                 round <= 0;
+                valid_o <= 0;
                 busy_o <= 1;
                 state <= KEY;
             end
@@ -92,10 +93,10 @@ always_ff @(posedge clk_i or negedge resetn_i) begin
             data_key_result_bytes[9] <= xored_data[79:72];
             data_key_result_bytes[10] <= xored_data[87:80];
             data_key_result_bytes[11] <= xored_data[95:88];
-            data_key_result_bytes[12] <= xored_data[103:0];
-            data_key_result_bytes[13] <= xored_data[111:0];
-            data_key_result_bytes[14] <= xored_data[119:0];
-            data_key_result_bytes[15] <= xored_data[127:0];
+            data_key_result_bytes[12] <= xored_data[103:96];
+            data_key_result_bytes[13] <= xored_data[111:104];
+            data_key_result_bytes[14] <= xored_data[119:112];
+            data_key_result_bytes[15] <= xored_data[127:120];
             
             if (round == 9) begin
                 data_o <= xored_data;
@@ -154,7 +155,7 @@ always_ff @(posedge clk_i or negedge resetn_i) begin
                 counter <= counter + 1;
             end else begin
                 temp_data <= {temp_L_data[7], temp_L_data[6], temp_L_data[5], temp_L_data[4], temp_L_data[3], temp_L_data[2], temp_L_data[1], temp_L_data[0]};
-
+                counter <= 0;
                 round <= round + 1;
                 state <= KEY;
             end
@@ -162,8 +163,8 @@ always_ff @(posedge clk_i or negedge resetn_i) begin
         FINISH: begin
             if (request_i) begin
                 temp_data <= data_i;
-                counter <= 0;
-                round <= 0;
+                counter = 0;
+                round = 0;
                 
                 busy_o <= 1;
                 valid_o <= 0;
