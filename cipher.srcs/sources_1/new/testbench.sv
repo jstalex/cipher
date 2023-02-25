@@ -80,7 +80,7 @@ module testbench();
                     };
         $display("%s", print_str);
         $display("============================");
-        // $finish();
+        $finish();
     end
 
 endmodule

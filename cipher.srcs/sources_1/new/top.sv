@@ -130,47 +130,47 @@ always_ff @(posedge clk_i or negedge resetn_i) begin
         end
         L: begin
             if (counter < 16) begin
-                data_galua_result[15] = L_mul_148_mem [temp_L_data[0]];
-                data_galua_result[14] = L_mul_32_mem  [temp_L_data[1]]; 
-                data_galua_result[13] = L_mul_133_mem [temp_L_data[2]]; 
-                data_galua_result[12] = L_mul_16_mem  [temp_L_data[3]]; 
-                data_galua_result[11] = L_mul_194_mem [temp_L_data[4]]; 
-                data_galua_result[10] = L_mul_192_mem [temp_L_data[5]]; 
-                data_galua_result[9]  =                temp_L_data[6] ;
-                data_galua_result[8]  = L_mul_251_mem [temp_L_data[7]]; 
-                data_galua_result[7]  =                temp_L_data[8] ;
-                data_galua_result[6]  = L_mul_192_mem [temp_L_data[9]]; 
-                data_galua_result[5]  = L_mul_194_mem [temp_L_data[10]]; 
-                data_galua_result[4]  = L_mul_16_mem  [temp_L_data[11]]; 
-                data_galua_result[3]  = L_mul_133_mem [temp_L_data[12]]; 
-                data_galua_result[2]  = L_mul_32_mem  [temp_L_data[13]]; 
-                data_galua_result[1]  = L_mul_148_mem [temp_L_data[14]]; 
-                data_galua_result[0]  =                temp_L_data[15] ;
+                data_galua_result[0] = L_mul_148_mem [temp_L_data[15]];
+                data_galua_result[1] = L_mul_32_mem  [temp_L_data[14]]; 
+                data_galua_result[2] = L_mul_133_mem [temp_L_data[13]]; 
+                data_galua_result[3] = L_mul_16_mem  [temp_L_data[12]]; 
+                data_galua_result[4] = L_mul_194_mem [temp_L_data[11]]; 
+                data_galua_result[5] = L_mul_192_mem [temp_L_data[10]]; 
+                data_galua_result[6]  =                temp_L_data[9] ;
+                data_galua_result[7]  = L_mul_251_mem [temp_L_data[8]]; 
+                data_galua_result[8]  =                temp_L_data[7] ;
+                data_galua_result[9]  = L_mul_192_mem [temp_L_data[6]]; 
+                data_galua_result[10]  = L_mul_194_mem [temp_L_data[5]]; 
+                data_galua_result[11]  = L_mul_16_mem  [temp_L_data[4]]; 
+                data_galua_result[12]  = L_mul_133_mem [temp_L_data[3]]; 
+                data_galua_result[13]  = L_mul_32_mem  [temp_L_data[2]]; 
+                data_galua_result[14]  = L_mul_148_mem [temp_L_data[1]]; 
+                data_galua_result[15]  =                temp_L_data[0] ;
                 
                 galua_summ = ((((((((((((((data_galua_result[0] ^ data_galua_result[1]) ^ data_galua_result[2]) ^ data_galua_result[3]) ^ data_galua_result[4]) ^ data_galua_result[5]) ^ data_galua_result[6]) ^ data_galua_result[7]) ^ data_galua_result[8]) ^ data_galua_result[9]) ^ data_galua_result[10]) ^ data_galua_result[11]) ^ data_galua_result[12]) ^ data_galua_result[13]) ^ data_galua_result[14]) ^ data_galua_result[15];
                 
                 data_galua_shifted[15] = galua_summ;
-                data_galua_shifted[14:0] = data_galua_result[15:1];
+                data_galua_shifted[14:0] = temp_L_data[15:1];
                 temp_L_data = data_galua_shifted;
                 
                 counter = counter + 1;
             end else begin
-                temp_data[7:0] = temp_L_data[15];
-                temp_data[15:8] = temp_L_data[14];
-                temp_data[23:16] = temp_L_data[13];
-                temp_data[31:24] = temp_L_data[12];
-                temp_data[39:32] = temp_L_data[11];
-                temp_data[47:40] = temp_L_data[10];
-                temp_data[55:48] = temp_L_data[9];
-                temp_data[63:56] = temp_L_data[8];
-                temp_data[71:64] = temp_L_data[7];
-                temp_data[79:72] = temp_L_data[6];
-                temp_data[87:80] = temp_L_data[5];
-                temp_data[95:88] = temp_L_data[4];
-                temp_data[103:96] = temp_L_data[3];
-                temp_data[111:104] = temp_L_data[2];
-                temp_data[119:112] = temp_L_data[1];
-                temp_data[127:120] = temp_L_data[0];
+                temp_data[7:0] = temp_L_data[0];
+                temp_data[15:8] = temp_L_data[1];
+                temp_data[23:16] = temp_L_data[2];
+                temp_data[31:24] = temp_L_data[3];
+                temp_data[39:32] = temp_L_data[4];
+                temp_data[47:40] = temp_L_data[5];
+                temp_data[55:48] = temp_L_data[6];
+                temp_data[63:56] = temp_L_data[7];
+                temp_data[71:64] = temp_L_data[8];
+                temp_data[79:72] = temp_L_data[9];
+                temp_data[87:80] = temp_L_data[10];
+                temp_data[95:88] = temp_L_data[11];
+                temp_data[103:96] = temp_L_data[12];
+                temp_data[111:104] = temp_L_data[13];
+                temp_data[119:112] = temp_L_data[14];
+                temp_data[127:120] = temp_L_data[15];
                 counter = 0;
                 round = round + 1;
                 state = KEY;
