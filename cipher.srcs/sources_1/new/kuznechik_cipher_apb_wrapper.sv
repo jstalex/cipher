@@ -13,7 +13,6 @@ module kuznechik_cipher_apb_wrapper(
     input  logic [3:0][7:0] pwdata_i,
     input  logic      [3:0] pstrb_i,
     
-    
     // Slave
     output logic            pready_o,
     output logic     [31:0] prdata_o,
@@ -96,25 +95,79 @@ assign control_regs[BUSY] = cipher_busy;
 assign control_regs[VALID] = cipher_valid;
 assign control_regs[REQ_ACK] = (penable_i && pwrite_i && (paddr_i == CONTROL) && pstrb_i[REQ_ACK]) ? pwdata_i[REQ_ACK] : 0;
 
-logic psel_prev;
 
-  typedef enum {
-    NONE = 0,
-    PENABLE = 1,
-    PWRITE = 2,
-    PSEL_PREV = 3,
-    ADDRES = 4,
-    READ_ONLY = 5,
-    REQUEST = 6,
-    MISALIGN = 7
-  } pslverr_causes_t;
+// Reading
+always_ff @(posedge penable_i) begin
+  if (~pwrite_i) begin
+    case (paddr_i)
+      CONTROL: begin
+        prdata_o[7:0] <= control_regs[RST];
+        prdata_o[15:8] <= control_regs[REQ_ACK];
+        prdata_o[23:16] <= control_regs[VALID];
+        prdata_o[31:24] <= control_regs[BUSY];
+      end
+      DATA_IN_0: prdata_o <= data_in_regs[0];
+      DATA_IN_1: prdata_o <= data_in_regs[1];
+      DATA_IN_2: prdata_o <= data_in_regs[2];
+      DATA_IN_3: prdata_o <= data_in_regs[3];
+      DATA_OUT_0: prdata_o <= data_out_regs[0];
+      DATA_OUT_1: prdata_o <= data_out_regs[1];
+      DATA_OUT_2: prdata_o <= data_out_regs[2];      
+      DATA_OUT_3: prdata_o <= data_out_regs[3];
+      
+      default: prdata_o <= 0;
+      endcase
+    end
+  end
+
+// Writing
+always_ff @(posedge penable_i) begin
+  if (penable_i && pwrite_i) begin
+
+    if ((paddr_i == CONTROL) && pstrb_i[RST]) begin
+      control_regs[RST] <= pwdata_i[RST];
+    end
+      
+    if (paddr_i == DATA_IN_0) begin
+      data_in_regs[0][7:0] <= pwdata_i[0];
+      data_in_regs[0][15:8] <= pwdata_i[1];
+      data_in_regs[0][23:16] <= pwdata_i[2];
+      data_in_regs[0][31:24] <= pwdata_i[3];
+    end else if (paddr_i == DATA_IN_1) begin
+      data_in_regs[1][7:0] <= pwdata_i[0];
+      data_in_regs[1][15:8] <= pwdata_i[1];
+      data_in_regs[1][23:16] <= pwdata_i[2];
+      data_in_regs[1][31:24] <= pwdata_i[3];
+    end else if (paddr_i == DATA_IN_2) begin
+      data_in_regs[2][7:0] <= pwdata_i[0];
+      data_in_regs[2][15:8] <= pwdata_i[1];
+      data_in_regs[2][23:16] <= pwdata_i[2];
+      data_in_regs[2][31:24] <= pwdata_i[3];
+    end else if (paddr_i == DATA_IN_3) begin
+      data_in_regs[3][7:0] <= pwdata_i[0];
+      data_in_regs[3][15:8] <= pwdata_i[1];
+      data_in_regs[3][23:16] <= pwdata_i[2];
+      data_in_regs[3][31:24] <= pwdata_i[3];
+    end
+  end
+end
+
+/////////// Errors comb logic ///////////////
+parameter NONE = 0,
+          PENABLE = 1,
+          PWRITE = 2,
+          PSEL_PREV = 3,
+          ADDRES = 4,
+          READ_ONLY = 5,
+          REQUEST = 6,
+          MISALIGN = 7;
 
 logic [2:0] pslverr_status;
+logic psel_temp;
 
-// errors handling
 always_comb begin
   pslverr_o <= 0;
-  psel_prev <= psel_i;
+  psel_temp <= psel_i;
 
   pslverr_status <= NONE;
   // Wrong transaction phase
@@ -126,7 +179,7 @@ always_comb begin
     pslverr_o <= 1;
     pslverr_status <= PWRITE;
   end
-  if (~psel_prev && penable_i) begin
+  if (~psel_temp && penable_i) begin
     pslverr_o <= 1;
     pslverr_status <= PSEL_PREV;
   end
@@ -164,59 +217,4 @@ always_comb begin
   end
 end
 
-// READ REGS
-always_ff @(posedge penable_i) begin
-  if (~pwrite_i) begin
-    case (paddr_i)
-      CONTROL: begin
-        prdata_o[7:0]   <= control_regs[RST];
-        prdata_o[15:8]  <= control_regs[REQ_ACK];
-        prdata_o[23:16] <= control_regs[VALID];
-        prdata_o[31:24] <= control_regs[BUSY];
-      end
-      DATA_IN_0: prdata_o <= data_in_regs[0];
-      DATA_IN_1: prdata_o <= data_in_regs[1];
-      DATA_IN_2: prdata_o <= data_in_regs[2];
-      DATA_IN_3: prdata_o <= data_in_regs[3];
-      DATA_OUT_0: prdata_o <= data_out_regs[0];
-      DATA_OUT_1: prdata_o <= data_out_regs[1];
-      DATA_OUT_2: prdata_o <= data_out_regs[2];      
-      DATA_OUT_3: prdata_o <= data_out_regs[3];
-      
-      default: prdata_o <= 0;
-      endcase
-    end
-  end
-
-// WRITE REGS
-always_ff @(posedge penable_i) begin
-  if (penable_i && pwrite_i) begin
-
-    if ((paddr_i == CONTROL) && pstrb_i[RST]) begin
-      control_regs[RST] <= pwdata_i[RST];
-    end
-      
-    if (paddr_i == DATA_IN_0) begin
-      data_in_regs[0][7:0]   <= pwdata_i[0];
-      data_in_regs[0][15:8]  <= pwdata_i[1];
-      data_in_regs[0][23:16] <= pwdata_i[2];
-      data_in_regs[0][31:24] <= pwdata_i[3];
-    end else if (paddr_i == DATA_IN_1) begin
-      data_in_regs[1][7:0]   <= pwdata_i[0];
-      data_in_regs[1][15:8]  <= pwdata_i[1];
-      data_in_regs[1][23:16] <= pwdata_i[2];
-      data_in_regs[1][31:24] <= pwdata_i[3];
-    end else if (paddr_i == DATA_IN_2) begin
-      data_in_regs[2][7:0]   <= pwdata_i[0];
-      data_in_regs[2][15:8]  <= pwdata_i[1];
-      data_in_regs[2][23:16] <= pwdata_i[2];
-      data_in_regs[2][31:24] <= pwdata_i[3];
-    end else if (paddr_i == DATA_IN_3) begin
-      data_in_regs[3][7:0]   <= pwdata_i[0];
-      data_in_regs[3][15:8]  <= pwdata_i[1];
-      data_in_regs[3][23:16] <= pwdata_i[2];
-      data_in_regs[3][31:24] <= pwdata_i[3];
-    end
-  end
-end
 endmodule
