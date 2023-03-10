@@ -3,101 +3,78 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="testbench_behav.wdb" id="1">
+      <db_ref path="tb_kuznechik_cipher_apb_wrapper_behav.wdb" id="1">
          <top_modules>
             <top_module name="glbl" />
-            <top_module name="testbench" />
+            <top_module name="kuznechik_cipher_apb_wrapper_pkg" />
+            <top_module name="tb_kuznechik_cipher_apb_wrapper" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="7298000000fs"></ZoomStartTime>
-      <ZoomEndTime time="7532400001fs"></ZoomEndTime>
-      <Cursor1Time time="1775000000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="606500001fs"></ZoomEndTime>
+      <Cursor1Time time="71525000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="212"></NameColumnWidth>
-      <ValueColumnWidth column_width="217"></ValueColumnWidth>
+      <ValueColumnWidth column_width="209"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="20" />
-   <wvobject fp_name="/testbench/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
+   <WVObjectSize size="14" />
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/pclk_i" type="logic">
+      <obj_property name="ElementShortName">pclk_i</obj_property>
+      <obj_property name="ObjectShortName">pclk_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/data_to_cipher" type="array">
-      <obj_property name="ElementShortName">data_to_cipher[0:10][127:0]</obj_property>
-      <obj_property name="ObjectShortName">data_to_cipher[0:10][127:0]</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/presetn_i" type="logic">
+      <obj_property name="ElementShortName">presetn_i</obj_property>
+      <obj_property name="ObjectShortName">presetn_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/ciphered_data" type="array">
-      <obj_property name="ElementShortName">ciphered_data[0:10][127:0]</obj_property>
-      <obj_property name="ObjectShortName">ciphered_data[0:10][127:0]</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/paddr_i" type="array">
+      <obj_property name="ElementShortName">paddr_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">paddr_i[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/request" type="logic">
-      <obj_property name="ElementShortName">request</obj_property>
-      <obj_property name="ObjectShortName">request</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/penable_i" type="logic">
+      <obj_property name="ElementShortName">penable_i</obj_property>
+      <obj_property name="ObjectShortName">penable_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/ack" type="logic">
-      <obj_property name="ElementShortName">ack</obj_property>
-      <obj_property name="ObjectShortName">ack</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/pwrite_i" type="logic">
+      <obj_property name="ElementShortName">pwrite_i</obj_property>
+      <obj_property name="ObjectShortName">pwrite_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/valid" type="logic">
-      <obj_property name="ElementShortName">valid</obj_property>
-      <obj_property name="ObjectShortName">valid</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/pwdata_i" type="array">
+      <obj_property name="ElementShortName">pwdata_i[3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">pwdata_i[3:0][7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/busy" type="logic">
-      <obj_property name="ElementShortName">busy</obj_property>
-      <obj_property name="ObjectShortName">busy</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/data_in_regs" type="array">
+      <obj_property name="ElementShortName">data_in_regs[3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in_regs[3:0][31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/DUT/state" type="array">
-      <obj_property name="ElementShortName">state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/data_out_regs" type="array">
+      <obj_property name="ElementShortName">data_out_regs[3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out_regs[3:0][31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/DUT/round" type="array">
-      <obj_property name="ElementShortName">round[3:0]</obj_property>
-      <obj_property name="ObjectShortName">round[3:0]</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/cipher_data_in" type="array">
+      <obj_property name="ElementShortName">cipher_data_in[127:0]</obj_property>
+      <obj_property name="ObjectShortName">cipher_data_in[127:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/DUT/counter" type="array">
-      <obj_property name="ElementShortName">counter[4:0]</obj_property>
-      <obj_property name="ObjectShortName">counter[4:0]</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/cipher_data_out" type="array">
+      <obj_property name="ElementShortName">cipher_data_out[127:0]</obj_property>
+      <obj_property name="ObjectShortName">cipher_data_out[127:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/DUT/data_o" type="array">
-      <obj_property name="ElementShortName">data_o[127:0]</obj_property>
-      <obj_property name="ObjectShortName">data_o[127:0]</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/pslverr_status" type="array">
+      <obj_property name="ElementShortName">pslverr_status[2:0]</obj_property>
+      <obj_property name="ObjectShortName">pslverr_status[2:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/DUT/key_mem" type="array">
-      <obj_property name="ElementShortName">key_mem[0:9][127:0]</obj_property>
-      <obj_property name="ObjectShortName">key_mem[0:9][127:0]</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/psel_i" type="logic">
+      <obj_property name="ElementShortName">psel_i</obj_property>
+      <obj_property name="ObjectShortName">psel_i</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/DUT/temp_data" type="array">
-      <obj_property name="ElementShortName">temp_data[127:0]</obj_property>
-      <obj_property name="ObjectShortName">temp_data[127:0]</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/pstrb_i" type="array">
+      <obj_property name="ElementShortName">pstrb_i[3:0]</obj_property>
+      <obj_property name="ObjectShortName">pstrb_i[3:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/DUT/data_i" type="array">
-      <obj_property name="ElementShortName">data_i[127:0]</obj_property>
-      <obj_property name="ObjectShortName">data_i[127:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/DUT/xored_data" type="array">
-      <obj_property name="ElementShortName">xored_data[127:0]</obj_property>
-      <obj_property name="ObjectShortName">xored_data[127:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/DUT/data_key_result_bytes" type="array">
-      <obj_property name="ElementShortName">data_key_result_bytes[15:0][7:0]</obj_property>
-      <obj_property name="ObjectShortName">data_key_result_bytes[15:0][7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/DUT/temp_L_data" type="array">
-      <obj_property name="ElementShortName">temp_L_data[15:0][7:0]</obj_property>
-      <obj_property name="ObjectShortName">temp_L_data[15:0][7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/DUT/data_galua_result" type="array">
-      <obj_property name="ElementShortName">data_galua_result[15:0][7:0]</obj_property>
-      <obj_property name="ObjectShortName">data_galua_result[15:0][7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/i" type="array">
-      <obj_property name="ElementShortName">i[31:0]</obj_property>
-      <obj_property name="ObjectShortName">i[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/DUT/galua_summ" type="array">
-      <obj_property name="ElementShortName">galua_summ[7:0]</obj_property>
-      <obj_property name="ObjectShortName">galua_summ[7:0]</obj_property>
+   <wvobject fp_name="/tb_kuznechik_cipher_apb_wrapper/DUT/pready_o" type="logic">
+      <obj_property name="ElementShortName">pready_o</obj_property>
+      <obj_property name="ObjectShortName">pready_o</obj_property>
    </wvobject>
 </wave_config>
