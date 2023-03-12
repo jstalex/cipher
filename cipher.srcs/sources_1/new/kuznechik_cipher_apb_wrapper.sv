@@ -30,7 +30,7 @@ module kuznechik_cipher_apb_wrapper(
 //    0x03 - BUSY
 
 // 0x04 - 0x13 - DATA_IN
-// 0x04 - 0x13 - DATA_OUT
+// 0x14 - 0x23 - DATA_OUT
 
 // parameters from pkg file
 parameter CONTROL = 32'h0000, 
@@ -122,98 +122,60 @@ always_ff @(posedge penable_i) begin
 
 // Writing
 always_ff @(posedge penable_i) begin
-  if (penable_i && pwrite_i) begin
-
-    if ((paddr_i == CONTROL) && pstrb_i[RST]) begin
-      control_regs[RST] <= pwdata_i[RST];
+  if (pwrite_i) begin
+  
+    case(paddr_i)
+    CONTROL: begin
+        if (pstrb_i[RST]) control_regs[RST] <= pwdata_i[RST];
     end
-      
-    if (paddr_i == DATA_IN_0) begin
+    DATA_IN_0: begin
       data_in_regs[0][7:0] <= pwdata_i[0];
       data_in_regs[0][15:8] <= pwdata_i[1];
       data_in_regs[0][23:16] <= pwdata_i[2];
       data_in_regs[0][31:24] <= pwdata_i[3];
-    end else if (paddr_i == DATA_IN_1) begin
+    end
+    DATA_IN_1: begin
       data_in_regs[1][7:0] <= pwdata_i[0];
       data_in_regs[1][15:8] <= pwdata_i[1];
       data_in_regs[1][23:16] <= pwdata_i[2];
       data_in_regs[1][31:24] <= pwdata_i[3];
-    end else if (paddr_i == DATA_IN_2) begin
+    end
+    DATA_IN_2: begin
       data_in_regs[2][7:0] <= pwdata_i[0];
       data_in_regs[2][15:8] <= pwdata_i[1];
       data_in_regs[2][23:16] <= pwdata_i[2];
       data_in_regs[2][31:24] <= pwdata_i[3];
-    end else if (paddr_i == DATA_IN_3) begin
+    end
+    DATA_IN_3: begin
       data_in_regs[3][7:0] <= pwdata_i[0];
       data_in_regs[3][15:8] <= pwdata_i[1];
       data_in_regs[3][23:16] <= pwdata_i[2];
       data_in_regs[3][31:24] <= pwdata_i[3];
     end
+    default:;
+    endcase
   end
 end
 
-/////////// Errors comb logic ///////////////
-parameter NONE = 0,
-          PENABLE = 1,
-          PWRITE = 2,
-          PSEL_PREV = 3,
-          ADDRES = 4,
-          READ_ONLY = 5,
-          REQUEST = 6,
-          MISALIGN = 7;
-
-logic [2:0] pslverr_status;
-logic psel_temp;
+/////////// Errors comb logic ///////////////       
 
 always_comb begin
   pslverr_o <= 0;
-  psel_temp <= psel_i;
 
-  pslverr_status <= NONE;
-  // Wrong transaction phase
-  if (penable_i && ~psel_i) begin
-    pslverr_o <= 1;
-    pslverr_status <= PENABLE;
-  end
-  if (pwrite_i && ~psel_i) begin
-    pslverr_o <= 1;
-    pslverr_status <= PWRITE;
-  end
-  if (~psel_temp && penable_i) begin
-    pslverr_o <= 1;
-    pslverr_status <= PSEL_PREV;
-  end
-
-
-  if ((paddr_i < CONTROL) || (paddr_i > DATA_OUT_3)) begin  // Register at the address doesn't exist
-    pslverr_o <= 1;
-    pslverr_status <= ADDRES;
-  end else if (pwrite_i) begin  // Write in read-only register
-    if (paddr_i == CONTROL) begin
-      if (pstrb_i[VALID]) begin
-        pslverr_o <= 1;
-        pslverr_status <= READ_ONLY;
-      end
-      if (pstrb_i[BUSY]) begin
-        pslverr_o <= 1;
-        pslverr_status <= READ_ONLY;
-      end
-    end
-
-    if ((paddr_i >= DATA_OUT_0) && (paddr_i <= DATA_OUT_3)) begin
-      pslverr_o <= 1;
-      pslverr_status <= READ_ONLY;
-    end
-  end
-
-  if (pwrite_i && (paddr_i == CONTROL) && pstrb_i[REQ_ACK] && control_regs[BUSY]) begin  // Don't receive request while cipher busy
-    pslverr_o <= 1;
-    pslverr_status <= REQUEST;
-  end
-
-  if (paddr_i[1:0]) begin  // Misaligned address
-    pslverr_o <= 1;
-    pslverr_status <= MISALIGN;
+  // phase error
+  if (penable_i && ~psel_i) pslverr_o <= 1;
+  if (pwrite_i && ~psel_i) pslverr_o <= 1;
+  if (~psel_i && penable_i) pslverr_o <= 1;
+  // cipher is busy
+  if (pwrite_i && (paddr_i == CONTROL) && pstrb_i[REQ_ACK] && control_regs[BUSY]) pslverr_o <= 1; 
+  // Misaligned address
+  if (paddr_i[1:0]) pslverr_o <= 1; 
+  // invalid address
+  if ((paddr_i < CONTROL) || (paddr_i > DATA_OUT_3)) pslverr_o <= 1; // invalid address
+  else if (pwrite_i) begin
+    // Write in read-only register
+    if ((paddr_i == CONTROL) && (pstrb_i[VALID] || pstrb_i[BUSY])) pslverr_o <= 1; 
+    if ((paddr_i >= DATA_OUT_0) && (paddr_i <= DATA_OUT_3)) pslverr_o <= 1;
   end
 end
 
